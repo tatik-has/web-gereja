@@ -154,6 +154,39 @@
                 </tr>
             </table>
             <small>Nilai kriteria di atas adalah nilai utilitas (Uij) setelah normalisasi (skala 0-100).</small>
+
+            @php
+                $score = $hasil->total_score;
+                $rekomendasi = '';
+                $alasan = '';
+                $style = '';
+
+                if ($score > 0.75) {
+                    // Sangat Direkomendasikan (Hijau)
+                    $rekomendasi = 'Sangat Direkomendasikan untuk Diterima';
+                    $alasan = 'Skor akhir sangat tinggi (di atas 0.75), ini menunjukkan tingkat urgensi dan kelayakan pemohon sangat tinggi.';
+                    $style = 'background-color: #d4edda; color: #155724;'; // Style Sukses (Hijau)
+                
+                } elseif ($score > 0.50) {
+                    // Direkomendasikan (Biru)
+                    $rekomendasi = 'Direkomendasikan untuk Diterima';
+                    $alasan = 'Skor akhir cukup (di atas 0.50). Pengajuan ini layak diterima, namun prioritasnya masih di bawah pengajuan dengan skor > 0.75.';
+                    $style = 'background-color: #d1ecf1; color: #0c5460;'; // Style Info (Biru)
+                
+                } else {
+                    // Perlu Pertimbangan (Kuning)
+                    $rekomendasi = 'Perlu Pertimbangan Kembali';
+                    $alasan = 'Skor akhir rendah (di bawah 0.50). Disarankan untuk meninjau kembali data pemohon atau memprioritaskan pengajuan lain yang lebih mendesak.';
+                    $style = 'background-color: #fff3cd; color: #856404;'; // Style Warning (Kuning)
+                }
+            @endphp
+
+            <div style="padding: 15px; border-radius: 5px; margin-top: 20px; {{ $style }}">
+                <h4 style="margin-top: 0; margin-bottom: 10px; font-weight: bold;">Rekomendasi Keputusan</h4>
+                <strong style="font-size: 1.1rem;">{{ $rekomendasi }}</strong>
+                <p style="margin-top: 8px; margin-bottom: 0;">{{ $alasan }}</p>
+            </div>
+
         @else
             <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px;">
                 Perhitungan SMART belum dilakukan untuk pengajuan ini.

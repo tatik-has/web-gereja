@@ -20,11 +20,11 @@
                 <i class="fa-solid fa-bullhorn"></i> Pengumuman
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="{{ route('admin.pengajuan.index') }}">
                 <i class="fa-solid fa-bullhorn"></i> pengajuan Bantuan
             </a>
-        </li>
+        </li> -->
         <li>
             <a href="{{ route('admin.keuangan.index') }}">
                 <i class="fa-solid fa-wallet"></i> Keuangan Gereja
