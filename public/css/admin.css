@@ -1,0 +1,328 @@
+/* Import Font (Opsional, tapi bagus) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Reset & Basic Setup */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f4f7f6; /* Latar belakang abu-abu muda */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Kunci untuk layout sidebar */
+}
+
+/* -------------------------
+   LAYOUT UTAMA (Sidebar + Content)
+   ------------------------- */
+
+.sidebar {
+    width: 260px; /* Lebar sidebar */
+    height: 100vh; /* Tinggi penuh */
+    background-color: #2c3e50; /* Warna biru gelap */
+    color: #ecf0f1;
+    position: fixed; /* Tetap di kiri */
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.main-wrapper {
+    margin-left: 260px; /* Jarak seukuran sidebar */
+    width: calc(100% - 260px); /* Sisa lebar layar */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------------------------
+   SIDEBAR STYLING
+   ------------------------- */
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #34495e;
+}
+
+.sidebar-header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Logo icon (Font Awesome) */
+.sidebar-header .fa-church {
+    color: #3498db; /* Warna biru ikon */
+}
+
+.sidebar-nav {
+    flex-grow: 1; /* Mengisi sisa ruang */
+    overflow-y: auto; /* Scroll jika menu panjang */
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar-nav li a {
+    display: block;
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 15px 25px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent; /* Indikator aktif */
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li.active a { /* Tambahkan class .active jika perlu */
+    background-color: #34495e;
+    color: #ffffff;
+    border-left-color: #3498db;
+}
+
+/* Ikon di sidebar */
+.sidebar-nav .fa-solid {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+    color: #95a5a6;
+}
+.sidebar-nav li a:hover .fa-solid,
+.sidebar-nav li.active a .fa-solid {
+    color: #3498db;
+}
+
+
+/* -------------------------
+   TOPBAR (Header Kanan)
+   ------------------------- */
+
+.topbar {
+    background-color: #ffffff;
+    padding: 15px 30px;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: flex-end; /* Pindahkan isi ke kanan */
+    align-items: center;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.topbar-user span {
+    font-weight: 500;
+    color: #333;
+}
+
+.logout-btn {
+    background-color: #e74c3c; /* Merah */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+.logout-btn .fa-solid {
+    margin-right: 5px;
+}
+
+/* -------------------------
+   MAIN CONTENT
+   ------------------------- */
+
+.content {
+    padding: 30px;
+    flex-grow: 1; /* Mengisi sisa tinggi */
+}
+
+.content-header {
+    margin-bottom: 20px;
+}
+
+.content-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.content-body {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* -------------------------
+   DASHBOARD STATS (Kartu)
+   ------------------------- */
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 5px solid; /* Garis warna di kiri */
+}
+
+.stat-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Warna spesifik untuk kartu */
+.stat-card.blue {
+    border-left-color: #3498db; /* Biru (Jemaat) */
+}
+.stat-card.yellow {
+    border-left-color: #f1c40f; /* Kuning (Pengajuan) */
+}
+
+
+/* -------------------------
+   Alerts, Forms, Tables (Tambahan)
+   ------------------------- */
+
+/* Alerts */
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    border: 1px solid transparent;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+    outline: none;
+}
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+th, td {
+    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+tbody tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+tbody tr:hover {
+    background-color: #f1f8ff;
+}

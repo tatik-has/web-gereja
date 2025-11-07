@@ -1,0 +1,94 @@
+/* * File CSS untuk Jemaat Dashboard
+ * Simpan file ini sebagai public/css/dashboard-jemaat.css
+ */
+
+/* Kartu Sambutan */
+.dashboard-welcome-card {
+    background-color: #ffffff;
+    border-radius: 12px; /* Sudut lebih bulat */
+    padding: 24px 30px;
+    margin-bottom: 30px;
+    border: 1px solid #eef2f7;
+    /* Bayangan halus untuk efek "terangkat" */
+    box-shadow: 0 6px 15px rgba(36, 37, 38, 0.05);
+}
+
+.dashboard-welcome-card h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600; /* Sedikit lebih tebal */
+    color: #333;
+}
+
+.dashboard-welcome-card p {
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Judul Bagian */
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #0056b3; /* Garis bawah sbg aksen (sesuaikan warna dgn tema Anda) */
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+/* Kontainer Pengumuman */
+.announcement-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Jarak antar kartu */
+}
+
+/* Kartu Pengumuman Individual */
+.announcement-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px 25px;
+    border: 1px solid #eef2f7;
+    box-shadow: 0 4px 12px rgba(36, 37, 38, 0.04);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Efek hover agar lebih interaktif */
+.announcement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(36, 37, 38, 0.08);
+}
+
+.announcement-title {
+    margin: 0 0 8px 0;
+    font-size: 1.25rem; /* Sedikit lebih besar */
+    font-weight: 600;
+    color: #0056b3; /* Sesuaikan dengan warna tema Anda */
+}
+
+.announcement-date {
+    display: block; /* Buat jadi block agar rapi */
+    margin-bottom: 12px;
+    font-size: 0.875rem; /* 14px */
+    color: #777;
+    font-style: italic;
+}
+
+.announcement-content {
+    margin: 0;
+    color: #444;
+    line-height: 1.7; /* Jarak antar baris agar nyaman dibaca */
+}
+
+/* Pesan jika tidak ada pengumuman */
+.announcement-empty {
+    background-color: #f9f9f9;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+}
