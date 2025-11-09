@@ -29,20 +29,7 @@ class PerhitunganController extends Controller
             return redirect()->back()->withErrors(['error' => 'Data Jemaat tidak ditemukan untuk pengajuan ini.']);
         }
 
-        // 3. --- LAKUKAN LOGIKA PERHITUNGAN SMART ANDA DI SINI ---
-        //
-        //    Ambil data dari:
-        //    $pengajuan->jemaat->gaji_per_bulan
-        //    $pengajuan->jemaat->usia
-        //    $pengajuan->jemaat->tanggungan
-        //    $pengajuan->jemaat->status_sosial
-        //    $pengajuan->musibah_id (mungkin ini jadi C1 - Kondisi Darurat)
-        //
-        //    ...
-        //    Lakukan normalisasi, hitung utilitas, dan skor akhir...
-        //
-        //    (Ini HANYA CONTOH data palsu, ganti dengan logika Anda)
-        //
+      
         $skor_akhir = 0.8750; // <-- Ganti dengan HASIL perhitungan Anda
         $nilai_kriteria_json = [
             'C1' => 80, // <-- Ganti dengan HASIL perhitungan Anda (cth: Nilai Utilitas Musibah)
@@ -51,11 +38,7 @@ class PerhitunganController extends Controller
             'C4' => 85, // <-- Ganti dengan HASIL perhitungan Anda (cth: Nilai Utilitas Status Sosial)
             'C5' => 100, // <-- Ganti dengan HASIL perhitungan Anda (cth: Nilai Utilitas Tanggungan)
         ];
-        // --------------------------------------------------------
-
-
-        // 4. Simpan hasil perhitungan ke database
-        // Gunakan updateOrCreate agar tidak duplikat jika dihitung ulang
+       
         PerhitunganSmart::updateOrCreate(
             ['pengajuan_id' => $pengajuan->id], // Cari berdasarkan ini
             [

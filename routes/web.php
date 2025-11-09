@@ -76,5 +76,6 @@ Route::middleware(['auth', 'verified'])->prefix('jemaat')->name('jemaat.')->grou
     Route::post('/pengajuan', [PengajuanJemaatController::class, 'store'])->name('pengajuan.store');
     Route::get('/pengajuan', [PengajuanJemaatController::class, 'index'])->name('pengajuan.index'); // Melihat riwayat
     
-    // RUTE VERIFIKASI SUDAH DIPINDAH KELUAR DARI SINI
+    // Keuangan Gereja
+    Route::get('/keuangan', [App\Http\Controllers\Jemaat\KeuanganController::class, 'index'])->name('keuangan');
 });

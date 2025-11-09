@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Manajemen Anggota Keluarga: ' . $jemaat->nama)
 

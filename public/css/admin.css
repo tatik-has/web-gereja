@@ -87,10 +87,10 @@ body {
 }
 
 .sidebar-nav li a:hover,
-.sidebar-nav li.active a { /* Tambahkan class .active jika perlu */
-    background-color: #34495e;
-    color: #ffffff;
-    border-left-color: #3498db;
+.sidebar-nav li.active a { /* Menu yang sedang aktif */
+    background-color: #34495e; /* Background abu-abu gelap */
+    color: #ffffff; /* Teks tetap putih */
+    border-left-color: #3498db; /* Border biru */
 }
 
 /* Ikon di sidebar */
@@ -100,9 +100,10 @@ body {
     text-align: center;
     color: #95a5a6;
 }
+
 .sidebar-nav li a:hover .fa-solid,
 .sidebar-nav li.active a .fa-solid {
-    color: #3498db;
+    color: #3498db; /* Ikon jadi biru saat aktif */
 }
 
 

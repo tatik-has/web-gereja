@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Edit Anggota: ' . $anggota->nama_anggota)
 

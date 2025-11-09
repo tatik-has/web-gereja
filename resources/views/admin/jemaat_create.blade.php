@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', isset($jemaat) ? 'Edit Data Jemaat' : 'Tambah Jemaat Baru')
 
