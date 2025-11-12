@@ -55,10 +55,73 @@
             </div>
 
             <div>
-                <div class="form-group">
-                    <label for="pekerjaan">Pekerjaan</label>
-                    <input type="text" id="pekerjaan" name="pekerjaan" value="{{ old('pekerjaan', $jemaat->pekerjaan ?? '') }}" placeholder="cth: Buruh, IRT, Tidak Bekerja">
-                </div>
+            
+            {{-- ================================================== --}}
+            {{-- === PERUBAHAN DIMULAI DI SINI (PEKERJAAN) === --}}
+            {{-- ================================================== --}}
+            <div class="form-group">
+                <label for="pekerjaan">Pekerjaan</label>
+                <select id="pekerjaan" name="pekerjaan" class="form-control" required>
+                    @php
+                        // Ambil nilai lama (bisa jadi 'pns', 'swasta', 'asn', dll.)
+                        $current_pekerjaan = old('pekerjaan', $jemaat->pekerjaan ?? '');
+                    @endphp
+                    <option value="">-- Pilih Pekerjaan --</option>
+                    
+                    <optgroup label="Prioritas (Nilai 30-25)">
+                        <option value="tidak bekerja" {{ $current_pekerjaan == 'tidak bekerja' ? 'selected' : '' }}>
+                            Tidak Bekerja (Nilai 30)
+                        </option>
+                        <option value="buruh" {{ $current_pekerjaan == 'buruh' ? 'selected' : '' }}>
+                            Buruh (Nilai 25)
+                        </option>
+                        <option value="petani" {{ $current_pekerjaan == 'petani' ? 'selected' : '' }}>
+                            Petani (Nilai 25)
+                        </option>
+                        <option value="honor lepas" {{ $current_pekerjaan == 'honor lepas' ? 'selected' : '' }}>
+                            Honor Lepas (Nilai 25)
+                        </option>
+                        <option value="irt menanggung sendiri" {{ $current_pekerjaan == 'irt menanggung sendiri' ? 'selected' : '' }}>
+                            IRT (Penanggung Sendiri) (Nilai 25)
+                        </option>
+                    </optgroup>
+                    
+                    <optgroup label="Menengah (Nilai 20-15)">
+                        <option value="umkm kecil" {{ $current_pekerjaan == 'umkm kecil' ? 'selected' : '' }}>
+                            UMKM Kecil (Nilai 20)
+                        </option>
+                        <option value="swasta" {{ in_array($current_pekerjaan, ['swasta', 'wiraswasta sedang']) ? 'selected' : '' }}>
+                            Swasta / Wiraswasta (Nilai 15)
+                        </option>
+                        <option value="honorer" {{ $current_pekerjaan == 'honorer' ? 'selected' : '' }}>
+                            Honorer (Nilai 15)
+                        </option>
+                    </optgroup>
+                    
+                    <optgroup label="Stabil (Nilai 10)">
+                        {{-- Ini menggabungkan 'asn' dan 'pns' ke satu pilihan --}}
+                        <option value="asn" {{ in_array($current_pekerjaan, ['asn', 'pns']) ? 'selected' : '' }}>
+                            ASN / PNS (Nilai 10)
+                        </option>
+                        <option value="bumn" {{ $current_pekerjaan == 'bumn' ? 'selected' : '' }}>
+                            Pegawai BUMN (Nilai 10)
+                        </option>
+                         {{-- Ini menggabungkan 'tni', 'polri', dan 'tni/polri' --}}
+                        <option value="tni/polri" {{ in_array($current_pekerjaan, ['tni/polri', 'tni', 'polri']) ? 'selected' : '' }}>
+                            TNI / Polri (Nilai 10)
+                        </option>
+                    </optgroup>
+                    
+                    <optgroup label="Lain-lain (Nilai 0)">
+                        <option value="ditanggung orang lain" {{ $current_pekerjaan == 'ditanggung orang lain' ? 'selected' : '' }}>
+                            Ditanggung Orang Lain (Nilai 0)
+                        </option>
+                    </optgroup>
+                </select>
+            </div>
+            {{-- ================================================== --}}
+            {{-- === PERUBAHAN SELESAI === --}}
+            {{-- ================================================== --}}
 
                 @php
                     // Ambil nilai mentah (raw) dari old() atau dari database
