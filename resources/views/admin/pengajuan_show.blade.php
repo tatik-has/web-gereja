@@ -33,6 +33,43 @@
                     <th>Keterangan</th>
                     <td>{{ $pengajuan->keterangan ?? '-' }}</td>
                 </tr>
+
+                <tr>
+                    <th>File Bukti Pendukung</th>
+                    <td>
+                        @if($pengajuan->file_bukti)
+                            @php
+                                $extension = pathinfo($pengajuan->file_bukti, PATHINFO_EXTENSION);
+                            @endphp
+
+                            @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                {{-- Jika file adalah gambar --}}
+                                <a href="{{ asset('storage/' . $pengajuan->file_bukti) }}" target="_blank">
+                                    <img src="{{ asset('storage/' . $pengajuan->file_bukti) }}" alt="Bukti Pendukung"
+                                        style="max-width: 300px; max-height: 300px; border: 2px solid #ddd; border-radius: 5px; cursor: pointer;">
+                                </a>
+                                <br>
+                                <a href="{{ asset('storage/' . $pengajuan->file_bukti) }}" target="_blank"
+                                    class="btn btn-sm btn-primary" style="margin-top: 10px;">
+                                    <i class="fa-solid fa-download"></i> Lihat Gambar Penuh
+                                </a>
+                            @elseif($extension === 'pdf')
+                                {{-- Jika file adalah PDF --}}
+                                <a href="{{ asset('storage/' . $pengajuan->file_bukti) }}" target="_blank"
+                                    class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-file-pdf"></i> Buka PDF
+                                </a>
+                            @else
+                                <a href="{{ asset('storage/' . $pengajuan->file_bukti) }}" target="_blank"
+                                    class="btn btn-sm btn-secondary">
+                                    <i class="fa-solid fa-download"></i> Download File
+                                </a>
+                            @endif
+                        @else
+                            <span style="color: #999;">Tidak ada file bukti</span>
+                        @endif
+                    </td>
+                </tr>
                 <tr>
                     <th>Tanggal Diajukan</th>
                     <td>{{ $pengajuan->created_at->format('d M Y, H:i') }}</td>
@@ -117,7 +154,8 @@
                 </tr>
                 <tr>
                     <th>Tanggungan</th>
-                    <td>{{ $pengajuan->jemaat->tanggungan ?? '-' }} Orang</td>
+                    <!-- PERBAIKI DI SINI: 'tanggungan' diubah menjadi 'jumlah_tanggungan' -->
+                    <td>{{ $pengajuan->jemaat->jumlah_tanggungan ?? '-' }} Orang</td>
                 </tr>
             </table>
         </div>

@@ -63,6 +63,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::get('anggota/{anggota}/edit', [AnggotaKeluargaController::class, 'edit'])->name('anggota.edit');
     Route::put('anggota/{anggota}', [AnggotaKeluargaController::class, 'update'])->name('anggota.update');
     Route::delete('anggota/{anggota}', [AnggotaKeluargaController::class, 'destroy'])->name('anggota.destroy');
+
+    Route::delete('/jemaats/{id}', [JemaatController::class, 'destroy'])->name('jemaats.destroy');
 });
 
 
@@ -75,6 +77,7 @@ Route::middleware(['auth', 'verified'])->prefix('jemaat')->name('jemaat.')->grou
     Route::get('/pengajuan/create', [PengajuanJemaatController::class, 'create'])->name('pengajuan.create');
     Route::post('/pengajuan', [PengajuanJemaatController::class, 'store'])->name('pengajuan.store');
     Route::get('/pengajuan', [PengajuanJemaatController::class, 'index'])->name('pengajuan.index'); // Melihat riwayat
+
     
     // Keuangan Gereja
     Route::get('/keuangan', [App\Http\Controllers\Jemaat\KeuanganController::class, 'index'])->name('keuangan');

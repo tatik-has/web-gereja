@@ -14,9 +14,20 @@
     </div>
 </div>
 
+{{-- Alert Error --}}
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul style="margin: 0; padding-left: 20px;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 {{-- Form Card --}}
 <div class="form-card">
-    <form action="{{ route('jemaat.pengajuan.store') }}" method="POST">
+    <form action="{{ route('jemaat.pengajuan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         <div class="form-group">
@@ -66,6 +77,32 @@
             <small class="form-hint">Jelaskan secara detail agar permohonan Anda dapat diproses dengan baik</small>
         </div>
 
+        {{-- 🔥 BAGIAN BARU: UPLOAD FILE BUKTI --}}
+        <div class="form-group">
+            <label for="file_bukti">
+                <i class="fa-solid fa-file-upload"></i> Upload Foto/File Surat Pendukung
+                <span class="required">*</span>
+            </label>
+            <input 
+                type="file" 
+                id="file_bukti" 
+                name="file_bukti" 
+                accept="image/*,.pdf"
+                required
+                class="form-input"
+                onchange="previewFile(this)">
+            <small class="form-hint">
+                Format yang diperbolehkan: JPG, PNG, PDF (Maksimal 2MB)<br>
+                Contoh: Surat Keterangan Sakit, Foto Kebakaran, Surat Kematian, dll.
+            </small>
+            
+            {{-- Preview Area --}}
+            <div id="file-preview" style="margin-top: 10px; display: none;">
+                <img id="preview-image" src="" alt="Preview" style="max-width: 300px; max-height: 300px; border: 2px solid #ddd; border-radius: 5px; padding: 5px;">
+                <p id="preview-filename" style="margin-top: 5px; font-weight: bold; color: #333;"></p>
+            </div>
+        </div>
+
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">
                 <i class="fa-solid fa-paper-plane"></i> Kirim Pengajuan
@@ -88,9 +125,40 @@
             <li>Pengajuan akan diproses dalam 1-3 hari kerja</li>
             <li>Anda akan mendapat notifikasi melalui sistem ini</li>
             <li>Pastikan data yang diisi lengkap dan benar</li>
+            <li><strong>WAJIB upload file bukti pendukung (foto/surat)</strong></li>
             <li>Untuk pertanyaan lebih lanjut, hubungi sekretariat gereja</li>
         </ul>
     </div>
 </div>
+
+{{-- JavaScript untuk Preview File --}}
+<script>
+function previewFile(input) {
+    const preview = document.getElementById('file-preview');
+    const previewImage = document.getElementById('preview-image');
+    const previewFilename = document.getElementById('preview-filename');
+    
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const fileType = file.type;
+        
+        previewFilename.textContent = '📄 ' + file.name;
+        
+        if (fileType.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        } else if (fileType === 'application/pdf') {
+            previewImage.style.display = 'none';
+            preview.style.display = 'block';
+            previewFilename.innerHTML = '📄 ' + file.name + '<br><small style="color: #666;">File PDF siap diupload</small>';
+        }
+    }
+}
+</script>
 
 @endsection

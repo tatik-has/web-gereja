@@ -12,7 +12,7 @@ class AnggotaKeluargaController extends Controller
     public function index(Jemaat $jemaat)
     {
         // Ambil semua anggota keluarga milik jemaat ini
-        $anggotas = $jemaat->anggotaKeluarga()->get();
+        $anggotas = $jemaat->anggotaKeluarga()->latest()->get();
         return view('admin.anggota.index', compact('jemaat', 'anggotas'));
     }
 
@@ -27,7 +27,12 @@ class AnggotaKeluargaController extends Controller
         ]);
 
         // Buat anggota baru yang terhubung langsung ke jemaat
+        // Menggunakan $request->all() seperti kode asli Anda
         $jemaat->anggotaKeluarga()->create($request->all());
+
+        // === LOGIKA OTOMATIS ANDA DITAMBAHKAN DI SINI ===
+        $this->updateTanggunganCount($jemaat);
+        // ===============================================
 
         return back()->with('success', 'Anggota keluarga berhasil ditambahkan.');
     }
@@ -50,7 +55,8 @@ class AnggotaKeluargaController extends Controller
 
         $anggota->update($request->all());
 
-        // Redirect kembali ke halaman index anggota
+        // Update tidak mengubah jumlah, jadi tidak perlu panggil updateTanggunganCount()
+        
         return redirect()->route('admin.anggota.index', $anggota->jemaat_id)
                          ->with('success', 'Data anggota berhasil diperbarui.');
     }
@@ -58,7 +64,29 @@ class AnggotaKeluargaController extends Controller
     // Menghapus anggota
     public function destroy(AnggotaKeluarga $anggota)
     {
+        // Ambil Jemaat-nya dulu SEBELUM dihapus
+        $jemaat = $anggota->jemaat;
+
         $anggota->delete();
+
+        // === LOGIKA OTOMATIS ANDA DITAMBAHKAN DI SINI ===
+        $this->updateTanggunganCount($jemaat);
+        // ===============================================
+
         return back()->with('success', 'Anggota keluarga berhasil dihapus.');
+    }
+
+    /**
+     * FUNGSI HELPER UNTUK MENGHITUNG OTOMATIS
+     * Menghitung total anggota dan menyimpannya ke tabel Jemaat.
+     */
+    private function updateTanggunganCount(Jemaat $jemaat)
+    {
+        // 1. Hitung total anggota yang dimiliki jemaat ini
+        $count = $jemaat->anggotaKeluarga()->count();
+        
+        // 2. Simpan angka tersebut ke kolom 'jumlah_tanggungan' di tabel 'jemaats'
+        $jemaat->jumlah_tanggungan = $count;
+        $jemaat->save();
     }
 }
