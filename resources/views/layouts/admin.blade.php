@@ -48,8 +48,25 @@
             </a>
         </div>
 
-        {{-- Hanya memuat navigasi admin --}}
-        @include('layouts.partials.admin_nav')
+        {{-- ========================================================== --}}
+        {{-- === BLOK NAVIGASI: MEMUAT SIDEBAR BERDASARKAN ROLE LOGIN === --}}
+        {{-- ========================================================== --}}
+        
+        @if(Auth::guard('admin')->check())
+            {{-- Jika pengguna login menggunakan guard 'admin' (Admin atau Pendeta) --}}
+            
+            @if(Auth::guard('admin')->user()->isPendeta())
+                {{-- Panggil navigasi Pendeta (Read-Only) --}}
+                @include('layouts.partials.pendeta_nav')
+            @elseif(Auth::guard('admin')->user()->isAdmin())
+                {{-- Panggil navigasi Admin (CRUD Penuh) --}}
+                @include('layouts.partials.admin_nav')
+            @endif
+            
+        @elseif(Auth::guard('web')->check())
+            {{-- Jika pengguna login menggunakan guard 'web' (asumsi: Jemaat) --}}
+            @include('layouts.partials.jemaat_nav') 
+        @endif
 
     </aside>
 
@@ -58,8 +75,20 @@
         <header class="topbar">
             <div class="topbar-user">
                 <span>
-                    {{-- Langsung tampilkan nama admin --}}
-                    {{ Auth::guard('admin')->user()->name }} (Admin)
+                    {{-- ========================================================== --}}
+                    {{-- === BLOK IDENTITAS: MENAMPILKAN NAMA DAN ROLE YANG BENAR === --}}
+                    {{-- ========================================================== --}}
+                    
+                    @if(Auth::guard('admin')->check())
+                        {{ Auth::guard('admin')->user()->name }} 
+                        (<strong>{{ Auth::guard('admin')->user()->isPendeta() ? 'Pendeta' : 'Admin' }}</strong>)
+                    @elseif(Auth::guard('web')->check())
+                        {{ Auth::guard('web')->user()->name }} 
+                        (<strong>Jemaat</strong>)
+                    @else
+                        Tamu
+                    @endif
+
                 </span>
 
                 <form action="{{ route('logout') }}" method="POST" style="margin:0;">

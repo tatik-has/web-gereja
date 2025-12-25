@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Jemaat; // Import Jemaat
+use App\Models\Jemaat; 
+use App\Models\Admin; // <<< TAMBAHKAN INI
 
 class LoginController extends Controller
 {
-    // Menampilkan halaman login
+    // ... (Fungsi showLoginForm tidak berubah)
     public function showLoginForm()
     {
         return view('auth.login'); // Satu view untuk semua
@@ -25,13 +26,21 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        // 1. Coba login sebagai ADMIN
+        // 1. Coba login sebagai ADMIN/PENDETA (menggunakan guard 'admin')
         if (Auth::guard('admin')->attempt($credentials)) {
+            $user = Auth::guard('admin')->user();
             $request->session()->regenerate();
-            return redirect()->intended(route('admin.dashboard'));
+
+            if ($user->isAdmin()) {
+                // Jika role adalah 'admin', arahkan ke dashboard Admin
+                return redirect()->intended(route('admin.dashboard'));
+            } elseif ($user->isPendeta()) {
+                // Jika role adalah 'pendeta', arahkan ke dashboard Pendeta
+                return redirect()->intended(route('pendeta.dashboard'));
+            }
         }
 
-        // 2. Coba login sebagai JEMAAT
+        // 2. Coba login sebagai JEMAAT (menggunakan guard 'web')
         if (Auth::guard('web')->attempt($credentials)) {
             
             // Cek apakah jemaat sudah di-approve
@@ -55,12 +64,15 @@ class LoginController extends Controller
         ])->withInput($request->only('email'));
     }
 
-    // Proses Logout
+    // Proses Logout (diperbaiki agar Pendeta juga bisa logout)
     public function logout(Request $request)
     {
+        // Cek apakah pengguna saat ini adalah Admin/Pendeta
         if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
-        } elseif (Auth::guard('web')->check()) {
+        } 
+        // Cek apakah pengguna saat ini adalah Jemaat
+        elseif (Auth::guard('web')->check()) {
             Auth::guard('web')->logout();
         }
 

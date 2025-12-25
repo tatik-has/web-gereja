@@ -1,0 +1,696 @@
+/* ===================================
+   Data Jemaat - Clean Modern Styling
+   Force Override with !important
+   =================================== */
+
+/* Page Header */
+.page-header {
+    background: #f8f9fa !important;
+    padding: 2rem !important;
+    border-radius: 0 !important;
+    margin-bottom: 2rem !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.header-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.page-title {
+    color: #2c3e50 !important;
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+
+.access-badge {
+    background: #e3f2fd !important;
+    color: #1976d2 !important;
+    padding: 0.5rem 1.2rem !important;
+    border-radius: 6px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    border: 1px solid #bbdefb !important;
+}
+
+/* Alert */
+.alert-success {
+    background: #4caf50 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 1rem 1.5rem !important;
+    margin-bottom: 2rem !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.8rem !important;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2) !important;
+}
+
+.icon-check::before {
+    content: "✓";
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* Table Container */
+.table-container {
+    background: white !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    margin-bottom: 2rem !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
+/* Modern Table - Force Override */
+.table-modern {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+}
+
+.table-modern thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-bottom: none !important;
+}
+
+.table-modern thead th {
+    padding: 1rem 1.2rem !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.table-modern tbody tr {
+    transition: background-color 0.2s ease !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.table-modern tbody tr:hover {
+    background-color: #fafafa !important;
+}
+
+.table-modern tbody tr:last-child {
+    border-bottom: none !important;
+}
+
+.table-modern tbody td {
+    padding: 1rem 1.2rem !important;
+    font-size: 0.95rem !important;
+    color: #424242 !important;
+    vertical-align: middle !important;
+    border: none !important;
+}
+
+/* Special Cell Styles */
+.name-cell {
+    font-weight: 600 !important;
+    color: #212121 !important;
+}
+
+.email-cell {
+    color: #757575 !important;
+    font-size: 0.9rem !important;
+}
+
+.count-cell {
+    text-align: center !important;
+    font-weight: 600 !important;
+    color: #1976d2 !important;
+    font-size: 1.1rem !important;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block !important;
+    padding: 0.35rem 0.9rem !important;
+    background: #e8f5e9 !important;
+    color: #2e7d32 !important;
+    border-radius: 4px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    border: 1px solid #c8e6c9 !important;
+}
+
+/* Detail Button */
+.btn-detail {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    background: #2196f3 !important;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+.btn-detail:hover {
+    background: #1976d2 !important;
+    color: white !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3) !important;
+}
+
+.btn-detail:active {
+    transform: scale(0.98) !important;
+}
+
+.btn-icon {
+    font-size: 1rem !important;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center !important;
+    padding: 4rem 2rem !important;
+}
+
+.empty-icon {
+    font-size: 3.5rem !important;
+    margin-bottom: 1rem !important;
+    opacity: 0.3 !important;
+}
+
+.empty-state p {
+    color: #9e9e9e !important;
+    font-size: 1rem !important;
+    margin: 0 !important;
+}
+
+/* Pagination */
+.pagination-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 2rem !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .table-container {
+        overflow-x: auto !important;
+    }
+    
+    .table-modern {
+        min-width: 900px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: 1.5rem !important;
+    }
+    
+    .header-content {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: flex-start !important;
+    }
+    
+    .page-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .access-badge {
+        align-self: flex-start !important;
+    }
+    
+    .table-modern thead th,
+    .table-modern tbody td {
+        padding: 0.9rem 0.8rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .btn-detail {
+        padding: 0.45rem 0.9rem !important;
+        font-size: 0.8rem !important;
+    }
+}
+/* ===================================
+   Data Pengajuan Bantuan - Modern Styling
+   Force Override with !important
+   =================================== */
+
+/* Page Header */
+.page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    padding: 2.5rem 2rem !important;
+    border-radius: 0 !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2) !important;
+    border: none !important;
+}
+
+.header-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+}
+
+.page-title {
+    color: #ffffff !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.access-badge {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    padding: 0.6rem 1.3rem !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Section Header */
+.section-header {
+    background: white !important;
+    padding: 1.5rem 2rem !important;
+    margin-bottom: 2rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    border-left: 4px solid #667eea !important;
+}
+
+.section-title {
+    color: #2c3e50 !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+
+/* Table Container */
+.table-container {
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden !important;
+    margin-bottom: 2rem !important;
+    border: 1px solid #e8eaed !important;
+}
+
+/* Modern Table - Force Override */
+.table-modern {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+}
+
+.table-modern thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-bottom: none !important;
+}
+
+.table-modern thead th {
+    padding: 1.2rem 1.5rem !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.table-modern thead th:first-child {
+    width: 80px !important;
+    text-align: center !important;
+}
+
+.table-modern thead th:last-child {
+    width: 150px !important;
+    text-align: center !important;
+}
+
+.table-modern tbody tr {
+    transition: all 0.3s ease !important;
+    border-bottom: 1px solid #f0f2f5 !important;
+}
+
+.table-modern tbody tr:hover {
+    background-color: #f8f9ff !important;
+    transform: scale(1.002) !important;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1) !important;
+}
+
+.table-modern tbody tr:last-child {
+    border-bottom: none !important;
+}
+
+.table-modern tbody td {
+    padding: 1.2rem 1.5rem !important;
+    font-size: 0.95rem !important;
+    color: #424242 !important;
+    vertical-align: middle !important;
+    border: none !important;
+}
+
+/* Special Cell Styles */
+.no-cell {
+    text-align: center !important;
+    font-weight: 700 !important;
+    color: #667eea !important;
+    font-size: 1rem !important;
+}
+
+.name-cell {
+    font-weight: 600 !important;
+    color: #212121 !important;
+    font-size: 1rem !important;
+}
+
+.jenis-cell {
+    color: #5f6368 !important;
+    font-size: 0.95rem !important;
+}
+
+.date-cell {
+    color: #757575 !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 1.2rem !important;
+    background: #e8f5e9 !important;
+    color: #2e7d32 !important;
+    border-radius: 20px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    border: 1px solid #c8e6c9 !important;
+    text-transform: capitalize !important;
+}
+
+/* Status Badge Variants */
+.badge-warning,
+.status-badge:contains("Pending") {
+    background: #fff3e0 !important;
+    color: #f57c00 !important;
+    border: 1px solid #ffe0b2 !important;
+}
+
+.badge-success,
+.status-badge:contains("Disetujui") {
+    background: #e8f5e9 !important;
+    color: #2e7d32 !important;
+    border: 1px solid #c8e6c9 !important;
+}
+
+.badge-danger,
+.status-badge:contains("Ditolak") {
+    background: #ffebee !important;
+    color: #c62828 !important;
+    border: 1px solid #ffcdd2 !important;
+}
+
+/* Aksi Cell */
+.aksi-cell {
+    text-align: center !important;
+}
+
+/* Detail Link Button */
+.btn-detail {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    padding: 0.6rem 1.3rem !important;
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%) !important;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3) !important;
+}
+
+.btn-detail:hover {
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%) !important;
+    color: white !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-detail:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3) !important;
+}
+
+.btn-icon {
+    font-size: 1.1rem !important;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center !important;
+    padding: 5rem 2rem !important;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaed 100%) !important;
+    border-radius: 12px !important;
+}
+
+.empty-icon {
+    font-size: 4rem !important;
+    margin-bottom: 1.5rem !important;
+    opacity: 0.3 !important;
+    color: #667eea !important;
+}
+
+.empty-state p {
+    color: #757575 !important;
+    font-size: 1.1rem !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 0 2rem !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table-modern tbody tr {
+    animation: fadeIn 0.3s ease !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        padding: 0 1.5rem !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .table-container {
+        overflow-x: auto !important;
+    }
+    
+    .table-modern {
+        min-width: 900px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: 2rem 1.5rem !important;
+    }
+    
+    .header-content {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: flex-start !important;
+    }
+    
+    .page-title {
+        font-size: 1.6rem !important;
+    }
+    
+    .access-badge {
+        align-self: flex-start !important;
+    }
+    
+    .section-header {
+        padding: 1.2rem 1.5rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .table-modern thead th,
+    .table-modern tbody td {
+        padding: 1rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .content-wrapper {
+        padding: 0 1rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .page-title {
+        font-size: 1.4rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.2rem !important;
+    }
+    
+    .btn-detail {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .table-modern thead th,
+    .table-modern tbody td {
+        padding: 0.8rem 0.6rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .empty-state {
+        padding: 3rem 1.5rem !important;
+    }
+    
+    .empty-icon {
+        font-size: 3rem !important;
+    }
+}
+/* ============================================
+   CUSTOM SCROLLBAR - Tambahkan ke pendeta.css
+   ============================================ */
+
+/* Scrollbar untuk Table Container */
+.table-container {
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+    overflow-x: auto !important; /* Enable horizontal scroll */
+    overflow-y: hidden !important;
+    margin-bottom: 2rem !important;
+    border: 1px solid #e8eaed !important;
+    position: relative !important;
+}
+
+/* Custom Scrollbar untuk Webkit (Chrome, Safari, Edge) */
+.table-container::-webkit-scrollbar {
+    height: 12px !important; /* Tinggi scrollbar horizontal */
+    background: #f5f7fa !important;
+    border-radius: 0 0 12px 12px !important;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f5f7fa !important;
+    border-radius: 0 0 12px 12px !important;
+    margin: 0 12px !important; /* Margin kiri-kanan */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-radius: 10px !important;
+    border: 2px solid #f5f7fa !important;
+    transition: all 0.3s ease !important;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%) !important;
+    border: 2px solid #eef0f5 !important;
+}
+
+.table-container::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, #4a5bbd 0%, #562f75 100%) !important;
+}
+
+/* Custom Scrollbar untuk Firefox */
+.table-container {
+    scrollbar-width: thin !important;
+    scrollbar-color: #667eea #f5f7fa !important;
+}
+
+/* Smooth Scrolling */
+.table-container {
+    scroll-behavior: smooth !important;
+}
+
+/* Table Modern - Set minimum width untuk enable scroll */
+.table-modern {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+    min-width: 1100px !important; /* Minimum width untuk trigger scroll */
+}
+
+/* Responsive - Mobile Scrollbar */
+@media (max-width: 768px) {
+    .table-container::-webkit-scrollbar {
+        height: 8px !important;
+    }
+    
+    .table-modern {
+        min-width: 900px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-container::-webkit-scrollbar {
+        height: 6px !important;
+    }
+    
+    .table-modern {
+        min-width: 800px !important;
+    }
+    
+    .table-container::-webkit-scrollbar-thumb {
+        border: 1px solid #f5f7fa !important;
+    }
+}

@@ -3,8 +3,16 @@
 @section('title', isset($jemaat) ? 'Edit Data Jemaat' : 'Tambah Jemaat Baru')
 
 @section('content')
+{{-- Tombol Kembali dengan Margin Bottom --}}
+    <div style="margin-bottom: 20px;">
+        <a href="{{ route('admin.jemaats.index') }}" class="btn btn-secondary">
+            &larr; Kembali ke Daftar Jemaat
+        </a>
+    </div>
+
     
     <form action="{{ isset($jemaat) ? route('admin.jemaats.update', $jemaat->id) : route('admin.jemaats.store') }}" method="POST">
+        
         @csrf
         
         @if(isset($jemaat))
@@ -59,10 +67,6 @@
                     </label>
                 </div>
             </div>
-
-            {{-- ============================================= --}}
-            {{-- === KOLOM 2: DATA UNTUK PERHITUNGAN SMART === --}}
-            {{-- ============================================= --}}
             <div>
             
                 {{-- ================================================== --}}
@@ -77,7 +81,6 @@
                         * Usia akan digunakan untuk perhitungan kriteria C3.
                     </small>
                 </div>
-                {{-- ================================================== --}}
                 
                 {{-- ================================================== --}}
                 {{-- === FORM PEKERJAAN (KRITERIA C2) === --}}
@@ -145,7 +148,7 @@
                 {{-- ================================================== --}}
 
                 {{-- ================================================== --}}
-                {{-- === PENAMBAHAN 2: GAJI (KRITERIA C2) === --}}
+                {{-- === GAJI (KRITERIA C2) === --}}
                 {{-- ================================================== --}}
                 <div class="form-group">
                     <label for="gaji_display">Gaji per Bulan (Jika Ada)</label>
@@ -213,8 +216,28 @@
                     </select>
                 </div>
                 {{-- ================================================== --}}
-                
-                {{-- === BAGIAN JUMLAH TANGGUNGAN (C5) DIHAPUS === --}}
+                {{-- === FORM JUMLAH TANGGUNGAN (READ-ONLY) === --}}
+                {{-- ================================================== --}}
+                <div class="form-group">
+                    <label for="jumlah_tanggungan_display">Jumlah Tanggungan</label>
+                    <input type="text" id="jumlah_tanggungan_display" class="form-control" 
+                        value="{{ old('jumlah_tanggungan', $jemaat->jumlah_tanggungan ?? 0) }} orang" 
+                        disabled
+                        style="background-color: #e9ecef; cursor: not-allowed;">
+                    
+                    {{-- Hidden input untuk validasi --}}
+                    <input type="hidden" name="jumlah_tanggungan" value="{{ old('jumlah_tanggungan', $jemaat->jumlah_tanggungan ?? 0) }}">
+                    
+                    <small class="form-text text-muted">
+                        * Jumlah tanggungan otomatis dihitung dari 
+                        <a href="{{ isset($jemaat) ? route('admin.anggota.index', $jemaat) : '#' }}" 
+                        style="color: #007bff; text-decoration: underline;"
+                        {{ !isset($jemaat) ? 'onclick="alert(\'Simpan data jemaat terlebih dahulu\'); return false;"' : '' }}>
+                            Manajemen Anggota Keluarga
+                        </a>
+                    </small>
+                </div>
+                {{-- ================================================== --}}
 
             </div>
         </div>

@@ -5,6 +5,12 @@
                 <i class="fa-solid fa-tachometer-alt"></i> Dashboard
             </a>
         </li>
+        
+        <li class="{{ request()->routeIs('admin.pendeta.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.pendeta.index') }}">
+                <i class="fa-solid fa-user-tie"></i> Kelola Pendeta
+            </a>
+        </li>
         <li class="{{ request()->routeIs('admin.jemaats.*') ? 'active' : '' }}">
             <a href="{{ route('admin.jemaats.index') }}">
                 <i class="fa-solid fa-users"></i> Data Jemaat
