@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jemaat;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule; // <<< TAMBAHKAN INI
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class JemaatController extends Controller
 {
     public function index()
     {
-        // Saya ganti 'paginate(20)' ke 'latest()->paginate(20)' agar data terbaru di atas
         $jemaats = Jemaat::withCount('anggotaKeluarga')->latest()->paginate(20);
         return view('admin.jemaat_index', compact('jemaats'));
     }
@@ -24,18 +24,27 @@ class JemaatController extends Controller
 
     public function store(Request $r)
     {
-        // === VALIDASI DIPERBAIKI ===
+        // === VALIDASI DIPERBAIKI + TAMBAH FILE_KK ===
         $r->validate([
             'nama' => 'required|string|max:255',
             'email' => 'nullable|email|unique:jemaats,email',
             'password' => 'required|min:6',
-            'gaji_per_bulan' => 'required|numeric|min:0', // Wajib diisi
-            'pekerjaan' => 'required|string', // Wajib diisi
-            'status_sosial' => 'required|string', // Wajib diisi
-            'usia' => 'required|integer|min:1', // Wajib diisi, minimal 1 tahun
+            'gaji_per_bulan' => 'required|numeric|min:0',
+            'pekerjaan' => 'required|string',
+            'status_sosial' => 'required|string',
+            'usia' => 'required|integer|min:1',
             'no_hp' => 'nullable|string',
             'alamat' => 'nullable|string',
+            'file_kk' => 'nullable|file|mimes:jpeg,jpg,png,pdf|max:2048', // <<< TAMBAH INI (max 2MB)
         ]);
+        
+        // === HANDLE UPLOAD FILE ===
+        $fileKkPath = null;
+        if ($r->hasFile('file_kk')) {
+            $file = $r->file('file_kk');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $fileKkPath = $file->storeAs('kartu_keluarga', $filename, 'public');
+        }
         
         $jemaat = Jemaat::create([
             'nama' => $r->nama,
@@ -43,15 +52,14 @@ class JemaatController extends Controller
             'no_hp' => $r->no_hp,
             'alamat' => $r->alamat,
             'pekerjaan' => $r->pekerjaan,
-            'gaji_per_bulan' => $r->gaji_per_bulan, // Tidak perlu '?? 0' krn sudah required
+            'gaji_per_bulan' => $r->gaji_per_bulan,
             'usia' => $r->usia,
-            'jumlah_tanggungan' => $r->jumlah_tanggungan, // <<< TAMBAHKAN INI
-            'status_sosial' => $r->status_sosial, // Tidak perlu '?? Umum' krn sudah required
+            'jumlah_tanggungan' => $r->jumlah_tanggungan,
+            'status_sosial' => $r->status_sosial,
             'password' => Hash::make($r->password),
             'approved' => $r->has('approved') ? true : false,
+            'file_kk' => $fileKkPath, // <<< SIMPAN PATH FILE
         ]);
-
-        $data['jumlah_tanggungan'] = 0;
 
         return redirect()->route('admin.jemaats.index')->with('success', 'Jemaat baru berhasil ditambahkan.');
     }
@@ -59,32 +67,45 @@ class JemaatController extends Controller
     public function edit($id)
     {
         $jemaat = Jemaat::findOrFail($id);
-        return view('admin.jemaat_create', compact('jemaat')); // Anda mungkin perlu ganti ke 'admin.jemaat_edit'
+        return view('admin.jemaat_create', compact('jemaat'));
     }
 
     public function update(Request $r, $id)
     {
         $jemaat = Jemaat::findOrFail($id);
         
-        // === VALIDASI UPDATE DIPERBAIKI ===
+        // === VALIDASI UPDATE + FILE_KK ===
         $r->validate([
             'nama' => 'required|string|max:255',
-            // Pastikan email unik, tapi abaikan email jemaat ini sendiri
             'email' => ['nullable', 'email', Rule::unique('jemaats')->ignore($jemaat->id)],
             'gaji_per_bulan' => 'required|numeric|min:0',
             'pekerjaan' => 'required|string',
             'status_sosial' => 'required|string',
             'usia' => 'required|integer|min:1',
-            'jumlah_tanggungan' => 'required|integer|min:0', // <<< TAMBAHKAN INI
+            'jumlah_tanggungan' => 'required|integer|min:0',
             'no_hp' => 'nullable|string',
             'alamat' => 'nullable|string',
+            'file_kk' => 'nullable|file|mimes:jpeg,jpg,png,pdf|max:2048', // <<< TAMBAH INI
         ]);
         
-        // UPDATE BARIS INI: Tambahkan 'jumlah_tanggungan'
+        // === HANDLE UPLOAD FILE BARU ===
+        if ($r->hasFile('file_kk')) {
+            // Hapus file lama jika ada
+            if ($jemaat->file_kk && Storage::disk('public')->exists($jemaat->file_kk)) {
+                Storage::disk('public')->delete($jemaat->file_kk);
+            }
+            
+            // Upload file baru
+            $file = $r->file('file_kk');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $jemaat->file_kk = $file->storeAs('kartu_keluarga', $filename, 'public');
+        }
+        
+        // UPDATE DATA
         $jemaat->update($r->only(
             'nama', 'email', 'no_hp', 'alamat', 'pekerjaan', 
             'gaji_per_bulan', 'usia', 'status_sosial',
-            'jumlah_tanggungan' // <<< TAMBAHKAN INI
+            'jumlah_tanggungan'
         ));
         
         if ($r->filled('password')) {
@@ -96,17 +117,18 @@ class JemaatController extends Controller
         
         return back()->with('success', 'Data jemaat berhasil diperbarui.');
     }
+
     public function destroy($id)
     {
-        // 1. Cari jemaat berdasarkan ID
         $jemaat = Jemaat::findOrFail($id);
         
-        // 2. Hapus data jemaat
-        // Sebaiknya tambahkan logic di sini jika ada data terkait
-        // (misal: anggota keluarga) yang perlu dihapus juga.
+        // === HAPUS FILE KK JIKA ADA ===
+        if ($jemaat->file_kk && Storage::disk('public')->exists($jemaat->file_kk)) {
+            Storage::disk('public')->delete($jemaat->file_kk);
+        }
+        
         $jemaat->delete();
         
-        // 3. Redirect kembali ke halaman index dengan pesan sukses
         return redirect()->route('admin.jemaats.index')
                          ->with('success', 'Data jemaat berhasil dihapus.');
     }

@@ -22,7 +22,8 @@ class Jemaat extends Authenticatable
         'usia',
         'password',
         'approved',
-        'status_sosial'
+        'status_sosial',
+        'file_kk'
     ];
     
     protected $hidden = ['password', 'remember_token'];
